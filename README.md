@@ -1,22 +1,49 @@
-# GUI do aplikacji MFC
+# GUI aplikacji w Qt (Widgets)
 
-Ten repozytorium zawiera prosty szkielet aplikacji **MFC (dialog-based)** z jednym oknem, przyciskiem i polem tekstowym.
+Masz rację — jeśli miało być **Qt** (a nie MFC), to ten projekt jest teraz przygotowany jako minimalna aplikacja **Qt Widgets**.
 
-## Co jest w projekcie
+## Co zawiera projekt
 
-- `MfcGuiApp.*` – klasa aplikacji (`CWinApp`).
-- `MainDialog.*` – główne okno dialogowe (`CDialogEx`) oraz obsługa zdarzeń.
-- `MfcGui.rc` + `resource.h` – definicje zasobów (okno, przycisk, etykieta).
+- `CMakeLists.txt` – konfiguracja budowania przez CMake (Qt5/Qt6).
+- `src/main.cpp` – punkt wejścia aplikacji.
+- `src/MainWindow.*` – główne okno z etykietą statusu i przyciskiem.
 
-## Działanie
+## Jak skompilować
 
-Po uruchomieniu aplikacji:
-1. Wyświetla się okno „MFC GUI Demo”.
-2. Kliknięcie przycisku **Kliknij mnie** aktualizuje etykietę komunikatem.
+### Windows (Visual Studio + Qt)
 
-## Jak użyć (Visual Studio)
+1. Zainstaluj Qt (np. przez Qt Online Installer) i komponent **Qt Widgets**.
+2. Otwórz „x64 Native Tools Command Prompt for VS”.
+3. Ustaw ścieżkę do Qt (przykład):
 
-1. Utwórz nowy projekt **MFC App** (Dialog based) w Visual Studio.
-2. Podmień wygenerowane pliki na pliki z tego repozytorium.
-3. Upewnij się, że `resource.h` i `MfcGui.rc` są dodane do projektu.
-4. Zbuduj i uruchom aplikację.
+   ```bat
+   set CMAKE_PREFIX_PATH=C:\Qt\6.7.2\msvc2022_64
+   ```
+
+4. Zbuduj projekt:
+
+   ```bat
+   cmake -S . -B build -G "Visual Studio 17 2022"
+   cmake --build build --config Release
+   ```
+
+5. Uruchom:
+
+   ```bat
+   build\Release\CuteGuiApp.exe
+   ```
+
+### Linux (Qt + CMake)
+
+```bash
+cmake -S . -B build
+cmake --build build -j
+./build/CuteGuiApp
+```
+
+> Jeśli `cmake` nie znajduje Qt, ustaw `CMAKE_PREFIX_PATH` na katalog instalacji Qt.
+
+## Zachowanie aplikacji
+
+- Startuje okno „Qt GUI Demo”.
+- Kliknięcie przycisku **Kliknij mnie** zmienia tekst statusu.
